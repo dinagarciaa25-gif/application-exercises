@@ -1,6 +1,6 @@
 ---
 title: "AE 03 - Visualizing Star Wars Characters"
-author: "Your Name"
+author: "Dina Alarcon"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -74,25 +74,25 @@ glimpse(starwars)
 
 **Answer the following questions:**
 
-**How many observations (rows) are there?** [Type your answer here.]
+**How many observations (rows) are there?** There are 87 observation rows. 
 
-**How many variables (columns) are there?** [Type your answer here.]
+**How many variables (columns) are there?** There are 14 variable columns.
 
 **Name three numerical variables:**
 
-1. [Type your answer here.]
-2. [Type your answer here.]
-3. [Type your answer here.]
+1. Height
+2. Mass
+3. birth_year
 
 **Name three categorical variables:**
 
-1. [Type your answer here.]
-2. [Type your answer here.]
-3. [Type your answer here.]
+1. Name
+2. hair_color
+3. skin_color
 
 **What does each observation represent?**
 
-[Type your answer here.]
+Each observation represent one Star Wars character. 
 
 ---
 
@@ -111,7 +111,7 @@ ggplot(starwars,
 
 **Your answer:**
 
-[Type your answer here. Use as much space as you need.]
+The color = gender mapping disappeared, and all the points became pink.
 
 **Task 2.2:** Why did this happen?
 
@@ -119,14 +119,14 @@ ggplot(starwars,
 
 **Your answer:**
 
-[Type your answer here. Use as much space as you need.]
+This happened because color = "pink" is set inside geom_point(), which overrides the color = gender mapping inside aes().
 
 **The issue:** When you set `color = "pink"` inside `geom_point()`, it overrides the aesthetic mapping `color = gender` from `aes()`. A fixed color set inside a `geom_*()` function always wins over a mapped color set inside `aes()` — you can't have both at once.
 
 **Task 2.3:** Since you can't keep the `color = gender` mapping *and* make every point pink, edit the code below to drop the conflicting mapping while keeping the other aesthetic mappings (`x`, `y`, and `size`) intact:
 ```{r scatterplot-pink}
 ggplot(starwars, 
-       aes(x = height, y = mass, color = gender, size = birth_year)) +
+       aes(x = height, y = mass, size = birth_year)) +
   geom_point(color = "pink")
 ```
 
@@ -147,10 +147,10 @@ ggplot(starwars,
        aes(x = height, y = mass, color = gender, size = birth_year)) +
   geom_point(color = "#30509C") +
   labs(
-    title = "___",           # Title about relationship between height and mass
-    x = "___",               # What is on the x-axis?
-    y = "___",               # What is on the y-axis?
-    size = "___"             # What does size represent?
+    title = "Height and Mass of Star Wars Characters",           # Title about relationship between height and mass
+    x = "Height (cm)",               # What is on the x-axis?
+    y = "Mass (kg)",               # What is on the y-axis?
+    size = "Birth Year"             # What does size represent?
   )
 ```
 
@@ -164,7 +164,7 @@ ggplot(starwars,
 
 **Your answer:**
 
-[Type your answer here.]
+There is no color label because color is set to one fixed color inside geom_point().The plot does not need a color legend, because its being mapped to a variable. 
 
 ---
 
@@ -188,12 +188,12 @@ starwars %>%
 **Now create your histogram:**
 ```{r histogram, eval = FALSE}
 # Fill in the blanks
-ggplot(starwars, aes(x = ___)) +
-  geom_histogram(binwidth = ___, fill = "steelblue", color = "white") +
+ggplot(starwars, aes(x = height)) +
+  geom_histogram(binwidth = 10, fill = "steelblue", color = "white") +
   labs(
-    title = "___",
-    x = "___",
-    y = "___"
+    title = "Distribution of Star Wars Character Heights",
+    x = "Height (cm)",
+    y = "Number of Characters"
   )
 ```
 
@@ -207,13 +207,13 @@ ggplot(starwars, aes(x = ___)) +
 
 **Your answer:**
 
-[Type your answer here. Include the binwidth you chose and your reasoning.]
+I chose a binwidth of 10 centimeters because it helps separate the heights into clear groups. Choosing 10 cm helps not create too many and/or too few bars. 
 
 **Task 4.2:** Describe the distribution. Is it symmetric, skewed left, or skewed right? Are there any outliers?
 
 **Your answer:**
 
-[Type your answer here. Use as much space as you need.]
+The distribution is slightly skewed to the left. Most characters in the left are between approximately 160 and 200 centimeters tall. There are a few short characters below 120 centimeters. There is one taller character around 260 centimeters that appears to be considered outliers. 
 
 ---
 
@@ -232,14 +232,14 @@ Pick a numerical variable and a categorical variable and make a visualization to
 - height by gender
 - mass by species
 - birth_year by sex
-```{r num-cat, eval = FALSE}
+```{r num-cat, eval = TRUE}
 # Your code here
-ggplot(starwars, aes(x = ___, y = ___)) +
+ggplot(starwars, aes(x = gender, y = height)) +
   geom_boxplot(fill = "lightblue") +
   labs(
-    title = "___",
-    x = "___",
-    y = "___"
+    title = "Height of Star Wars Characters by Gender",
+    x = "Gender",
+    y = "Height (cm)"
   )
 ```
 
@@ -247,7 +247,7 @@ ggplot(starwars, aes(x = ___, y = ___)) +
 
 What does this visualization tell you about the relationship between these two variables?
 
-[Type your answer here. Use as much space as you need.]
+The visualization tells me about the relationship between these two variable is that masculine characters generally have a higher median height than feminine characters. They also have wider range of heights and more outliers, including several unusually short and tall characters. Characters with missing gender information have heights near the middle of the other two groups. 
 
 ---
 
@@ -262,30 +262,30 @@ Pick a single categorical variable from the dataset and make a bar plot of its d
 - species
 - eye_color
 - hair_color
-```{r barplot, eval = FALSE}
+```{r barplot, eval = TRUE}
 # Your code here
-ggplot(starwars, aes(x = ___)) +
+ggplot(starwars, aes(x = gender)) +
   geom_bar(fill = "coral") +
   labs(
-    title = "___",
-    x = "___",
-    y = "___"
+    title = "Number of Star Wars Characters by Gender",
+    x = "Gender",
+    y = "Number of Characters"
   )
 ```
 
 **Task 6.1:** Which category has the most observations?
 
-**Your answer:** [Type your answer here.]
+**Your answer:** The category that has the most observations is masculine category with approximately 66 characters.
 
 **Task 6.2:** If your plot has many categories with small bars that are hard to read, try flipping the coordinates:
-```{r barplot-flipped, eval = FALSE}
+```{r barplot-flipped, eval = TRUE}
 # Same code as above, but add coord_flip() at the end
-ggplot(starwars, aes(x = ___)) +
+ggplot(starwars, aes(x = gender)) +
   geom_bar(fill = "coral") +
   labs(
-    title = "___",
-    x = "___",
-    y = "___"
+    title = "Number of Star Wars Characters by Gender",
+    x = "Gender",
+    y = "Number of Characters"
   ) +
   coord_flip()
 ```
@@ -310,15 +310,15 @@ Pick two categorical variables and make a visualization to visualize the relatio
 - gender and hair_color
 
 **Option 1: Stacked bar plot**
-```{r cat-cat-stacked, eval = FALSE}
+```{r cat-cat-stacked, eval = TRUE}
 # Your code here
-ggplot(starwars, aes(x = ___, fill = ___)) +
+ggplot(starwars, aes(x = gender, fill = hair_color)) +
   geom_bar() +
   labs(
-    title = "___",
-    x = "___",
+    title = "Hair Color of Star Wars Characters by Gender",
+    x = "Gender",
     y = "Count",
-    fill = "___"
+    fill = "Hair Color"
   )
 ```
 
@@ -339,7 +339,7 @@ ggplot(starwars, aes(x = ___, fill = ___)) +
 
 What does this visualization tell you about the relationship between these two variables?
 
-[Type your answer here. Use as much space as you need.]
+The relationship between these two variables is that masculine characters make up the largest group and have the greatest variety of hair colors. “None” is the most common hair-color category among masculine characters, while feminine characters have fewer observations and a smaller variety of hair colors.
 
 ---
 
@@ -362,21 +362,21 @@ Pick two numerical variables and two categorical variables and make a visualizat
 - species (categorical - use for facets, maybe filter to top 3-4 species)
 
 **Starter template:**
-```{r multi, eval=FALSE}
+```{r multi, eval=TRUE}
 # You might want to filter first to avoid too many facets
 starwars_filtered <- starwars %>%
-  filter(species %in% c("Human", "Droid", "___"))  # Pick 3-4 species
+  filter(species %in% c("Human", "Droid", "Wookiee"))
 
-# Your plot here
-ggplot(starwars_filtered, 
-       aes(x = ___, y = ___, color = ___)) +
+#plot
+ggplot(starwars_filtered,
+       aes(x = height, y = mass, color = gender)) +
   geom_point(size = 3) +
-  facet_wrap(~ ___) +
+  facet_wrap(~ species) +
   labs(
-    title = "___",
-    x = "___",
-    y = "___",
-    color = "___"
+    title = "Height and Mass by Species and Gender",
+    x = "Height (cm)",
+    y = "Mass (kg)",
+    color = "Gender"
   )
 ```
 
@@ -384,7 +384,7 @@ ggplot(starwars_filtered,
 
 What patterns do you notice? How do the relationships differ across the facets?
 
-[Type your answer here. Use as much space as you need.]
+For the human characters, taller characters generally weigh more. The droids have very different heights and weights. Both Wookiees are tall and heavy, and the taller Wookiee also weighs more. Most of the characters shown are masculine.
 
 ---
 
@@ -394,20 +394,19 @@ What patterns do you notice? How do the relationships differ across the facets?
 
 **Your answer:**
 
-[Type your answer here. Use as much space as you need.]
+I think the scatterplot was the most useful because it made the relationship between height and weight easy to see. The colors and separate sections also made it easier to compare gender and species.
 
 **Task 9.2:** What was the most interesting pattern or relationship you found?
 
 **Your answer:**
 
-[Type your answer here. Use as much space as you need.]
+The most interesting pattern I found was that taller characters usually weighed more, especially the human characters. I also noticed that the droids had very different heights and weights.
 
 **Task 9.3:** What did you find most challenging about creating these visualizations?
 
 **Your answer:**
 
-[Type your answer here.]
-
+The most challenging part was choosing the right variables and graph for each exercise. I also had to make sure that every graph had a title and the correct labels.
 ---
 
 ## Knit and Submit
