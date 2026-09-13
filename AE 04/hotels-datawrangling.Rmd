@@ -1,6 +1,6 @@
 ---
 title: "AE 04 - Hotel Bookings - Data Wrangling"
-author: "Your Name"
+author: "Dina Alarcon"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -87,15 +87,15 @@ skim(hotels)
 
 **Answer the following questions:**
 
-**How many observations (bookings) are in the dataset?** _____
+**How many observations (bookings) are in the dataset?** _119390_
 
-**How many variables are there?** _____
+**How many variables are there?** __18___
 
-**What is the data type of the `hotel` variable?** _____
+**What is the data type of the `hotel` variable?** __hotel: character___
 
-**What is the data type of the `lead_time` variable?** _____
+**What is the data type of the `lead_time` variable?** __lead_time: numeric___
 
-**How many missing values does the `children` variable have?** _____
+**How many missing values does the `children` variable have?** __4___
 
 **Note:** A definition of all variables is given in the [Data dictionary] section at the end. You don't need to memorize all variables, but browse through them to get familiar with the dataset.
 
@@ -106,12 +106,12 @@ skim(hotels)
 Are people traveling on a whim? Let's see...
 
 Fill in the blanks for filtering for hotel bookings where the guest is **not** from the US (`country` code `"USA"`) and the `lead_time` is less than 1 day.
-```{r travel-whim, eval = FALSE}
+```{r travel-whim, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 hotels %>%
   filter(
-    country ___ "USA",      # != means "not equal to"
-    lead_time ___ ___       # < means "less than"
+    country != "USA",      # != means "not equal to"
+    lead_time < 1       # < means "less than"
   )
 ```
 
@@ -123,12 +123,12 @@ hotels %>%
 
 **Task 2.1:** How many bookings meet these criteria?
 
-**Your answer:** _____ bookings
+**Your answer:** __6,174___ bookings
 
 **Task 2.2:** What does this tell you about spontaneous non-US travelers?
 
 **Your answer:**
-
+This shows that many non-US travelers made their hotel reservations on the same day they arrived. Spontaneous or last-minute travel was fairly common in this dataset.
 ___________________________________________________________________________
 ___________________________________________________________________________
 
@@ -139,10 +139,10 @@ ___________________________________________________________________________
 How many bookings involve at least 1 child **or** baby?
 
 Fill in the blanks below (remember to switch `eval = FALSE` to `eval = TRUE` once you're done):
-```{r some-children, eval = FALSE}
+```{r some-children, eval = TRUE}
 hotels %>%
   filter(
-    children ___ 1 ___ babies ___ 1
+    children >= 1 | babies >= 1
   )
 ```
 
@@ -151,13 +151,13 @@ hotels %>%
 - "At least 1" means "greater than or equal to 1": `>=`
 - "Or" in R: `|`
 
-**How many bookings have at least 1 child or baby?** _____ bookings
+**How many bookings have at least 1 child or baby?** 9,332 bookings
 
 **What percentage of total bookings is this?**
 
 Calculate: (bookings with children/babies) / (total bookings) × 100
 
-**Your answer:** About _____% of bookings include children or babies.
+**Your answer:** About 7.8% of bookings include children or babies.
 
 ---
 
@@ -167,40 +167,39 @@ Do you think it's more likely to find bookings with children or babies in city h
 
 **Task 4.1:** Make a prediction first.
 
-**Your prediction:** I think ___________ hotels will have more bookings with children/babies because ________________________________________________
+**Your prediction:** I think resort hotels will have more bookings with children/babies because families often choose resorts for vacations. 
 
 **Task 4.2:** Filter for resort hotel bookings with at least 1 child **or** baby.
-```{r resort-children, eval = FALSE}
+```{r resort-children, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Filter for resort hotels with children or babies
 hotels %>%
   filter(
-    hotel == "___",                    # Resort Hotel
-    children ___ 1 | babies ___ 1      # At least 1 child OR baby
+    hotel == "Resort Hotel",                    # Resort Hotel
+    children >= 1 | babies >= 1      # At least 1 child OR baby
   )
 ```
 
-**Number of resort hotel bookings with children/babies:** _____
+**Number of resort hotel bookings with children/babies:** _3,929____
 
 **Task 4.3:** Now do the same for city hotels.
-```{r city-children, eval = FALSE}
+```{r city-children, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Filter for city hotels with children or babies
 hotels %>%
   filter(
-    hotel == "___",                    # City Hotel
-    children ___ 1 | babies ___ 1      # At least 1 child OR baby
+    hotel == "City Hotel",                    # City Hotel
+    children >= 1 | babies >= 1      # At least 1 child OR baby
   )
 ```
 
-**Number of city hotel bookings with children/babies:** _____
+**Number of city hotel bookings with children/babies:** __5,403___
 
 **Task 4.4:** Which hotel type has more bookings with children/babies? Was your prediction correct?
 
 **Your answer:**
+City hotels have more bookings with children or babies. My prediction was not correct because I thought resort hotels would have more, but city hotels had 5,403 bookings compared to 3,929 resort hotel bookings.
 
-___________________________________________________________________________
-___________________________________________________________________________
 
 ---
 
@@ -209,11 +208,11 @@ ___________________________________________________________________________
 Create a frequency table of the number of `adults` in a booking. Display the results in descending order so the most common observation is on top. 
 
 **What is the most common number of adults in bookings in this dataset? Are there any surprising results?**
-```{r adults-frequency, eval = FALSE}
+```{r adults-frequency, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Create frequency table
 hotels %>%
-  count(___, sort = ___)         # Count adults, sort in descending order
+  count(adults, sort = TRUE)         # Count adults, sort in descending order
 ```
 
 **Hints:**
@@ -224,16 +223,16 @@ hotels %>%
 
 **Task 5.1:** What is the most common number of adults?
 
-**Your answer:** _____ adults
+**Your answer:** __2___ adults
 
 **Task 5.2:** What surprising result(s) do you see?
 
 **Your answer:**
+The surprising results include 403 bookings with zero adults and a few bookings listing unusually large groups, such as 20, 26, or 27 adults. I find that surprising to see a common number of 2 adults.
 
-___________________________________________________________________________
-___________________________________________________________________________
 
 **Hint:** Look at the minimum and maximum values. Do they make sense for hotel bookings?
+
 
 ---
 
@@ -242,12 +241,12 @@ ___________________________________________________________________________
 Repeat Exercise 5, once for canceled bookings (`is_canceled` coded as 1) and once for not canceled bookings (`is_canceled` coded as 0). What does this reveal about the surprising results you spotted in the previous exercise?
 
 **Task 6.1:** Frequency table for CANCELED bookings.
-```{r canceled-adults, eval = FALSE}
+```{r canceled-adults, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Filter for canceled bookings, then count adults
 hotels %>%
-  filter(is_canceled == ___) %>%
-  count(___, sort = TRUE)
+  filter(is_canceled == 1) %>%
+  count(adults, sort = TRUE)
 ```
 
 **Task 6.2:** Frequency table for NOT CANCELED bookings.
@@ -255,32 +254,30 @@ hotels %>%
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Filter for not canceled bookings, then count adults
 hotels %>%
-  filter(is_canceled == ___) %>%
-  count(___, sort = TRUE)
+  filter(is_canceled == 0) %>%
+  count(adults, sort = TRUE)
 ```
 
 **Task 6.3:** What does this reveal about the surprising results from Exercise 5?
 
 **Your answer:**
 
-The unusual values (like 0 adults) appear more frequently in _____________ bookings. This suggests that _____________________________________________
-___________________________________________________________________________
-___________________________________________________________________________
+The unusual values (like 0 adults) appear more frequently in not-canceled bookings. This suggests that zero-adult values may be data-entry errors because those bookings were still completed. Although the large number groups could be those unusual group reservations were canceled or entered incorrectly.
 
 ---
 
 ## Exercise 7: Group Summary Statistics
 
 Calculate minimum, mean, median, and maximum average daily rate (`adr`) grouped by `hotel` type so that you can get these statistics separately for resort and city hotels. Which type of hotel is higher, on average?
-```{r hotel-adr-summary, eval = FALSE}
+```{r hotel-adr-summary, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 hotels %>%
-  group_by(___) %>%
+  group_by(hotel) %>%
   summarise(
-    min_adr = min(___),
-    mean_adr = mean(___),
-    median_adr = median(___),
-    max_adr = max(___)
+    min_adr = min(adr),
+    mean_adr = mean(adr),
+    median_adr = median(adr),
+    max_adr = max(adr)
   )
 ```
 
@@ -294,23 +291,21 @@ hotels %>%
 
 | Statistic | Resort Hotel | City Hotel |
 |:----------|:-------------|:-----------|
-| Minimum   |              |            |
-| Mean      |              |            |
-| Median    |              |            |
-| Maximum   |              |            |
+| Minimum   |   -6.38      |   0.00     |
+| Mean      |   94.95      | 105.30     |
+| Median    |   75.00      |  99.90     |
+| Maximum   |    508       |   5400     |
 
 **Task 7.2:** Which type of hotel has a higher average daily rate?
 
 **Your answer:**
+City hotels have a higher average daily rate. Their mean daily rate is about 105.30, compared to about 94.95 for resort hotels.
 
-___________________________________________________________________________
 
 **Task 7.3:** What unusual values do you notice in the summary statistics?
 
 **Your answer:**
-
-___________________________________________________________________________
-___________________________________________________________________________
+The Resort Hotel has a negative minimum daily rate of -6.38, which does not seem realistic because a hotel price normally cannot be negative. 
 
 **Hint:** Look at the minimum and maximum values. Are they realistic?
 
@@ -323,32 +318,33 @@ We observe two unusual values in the summary statistics above -- a negative mini
 **Hint:** For example, you can `filter` for the given `adr` amounts and `select` the relevant columns.
 
 **Task 8.1:** Investigate the negative ADR value.
-```{r negative-adr, eval = FALSE}
+```{r negative-adr, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Filter for negative adr and select relevant columns
 hotels %>%
-  filter(adr ___ ___) %>%                           # adr less than 0
+  filter(adr < 0)  %>%                           # adr less than 0
   select(hotel, adr, arrival_date_year, 
          arrival_date_month, adults, children, babies)
 ```
 
 **Your findings:**
 
-**Hotel type:** _____
+**Hotel type:** Resort Hotel
 
-**Arrival year:** _____
+**Arrival year:** 2017
 
-**Arrival month:** _____
+**Arrival month:** March
 
-**Number of adults:** _____
+**Number of adults:** 2
 
-**Number of children:** _____
+**Number of children:** 0
 
-**Number of babies:** _____
+**Number of babies:** 0
 
 **Why might this ADR be negative?**
+This ADR might be negative because it may be caused by a refund, discount, or data-entry error.
 
-___________________________________________________________________________
+
 
 **Task 8.2:** Investigate the very high maximum ADR.
 
@@ -357,60 +353,59 @@ First, determine what the maximum is from Exercise 7, then filter for it.
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Filter for the maximum adr you found in Exercise 7
 hotels %>%
-  filter(adr == ___) %>%                            # Use the max value you found
+  filter(adr == 5400) %>%                            # Use the max value you found
   select(hotel, adr, arrival_date_year, 
          arrival_date_month, adults, children, babies)
 ```
 
 **Your findings:**
 
-**Hotel type:** _____
+**Hotel type:**City Hotel
 
-**Arrival year:** _____
+**Arrival year:** 2016
 
-**Arrival month:** _____
+**Arrival month:** March
 
-**Number of adults:** _____
+**Number of adults:** 2
 
-**Number of children:** _____
+**Number of children:** 0
 
-**Number of babies:** _____
+**Number of babies:** 0
 
 **Why might this ADR be so high? Is this realistic?**
 
-___________________________________________________________________________
-___________________________________________________________________________
+The ADR be so high because data-entry error. 5,400 is not realistic for a hotel rate on a normal day.   
+
 
 **Task 8.3:** Should these unusual values be removed from the dataset? Why or why not?
 
 **Your answer:**
 
-___________________________________________________________________________
-___________________________________________________________________________
-___________________________________________________________________________
+I believe these unusual values should be investigated before removing them. If they are confirmed to be data-entry errors, they should be removed in order to not continue to have errors. 
 
 ---
 
 ## Exercise 9: Challenge (Optional)
 
 **Task 9.1:** Create a new variable called `total_guests` that sums `adults`, `children`, and `babies`. Then calculate the average number of total guests by hotel type.
-```{r total-guests, eval = FALSE}
+```{r total-guests, eval = TRUE}
 # don't forget to switch eval = FALSE to TRUE after filling in the blanks
 # Your code here
 hotels %>%
-  mutate(total_guests = ___ + ___ + ___) %>%
-  group_by(___) %>%
-  summarise(avg_guests = mean(___))
+  mutate(total_guests = adults + children + babies) %>%
+  group_by(hotel) %>%
+  summarise(avg_guests = mean(total_guests, na.rm = TRUE))
 ```
 
 **Task 9.2:** Which months have the highest number of bookings? Create a frequency table of `arrival_date_month`.
 
 **Hint:** You might want to convert month to a factor with the correct order so they display chronologically.
 ```{r bookings-by-month}
-# Your code here
+hotels %>%
+  count(arrival_date_month, sort = TRUE)
 ```
 
-**Which month has the most bookings?** _____
+**Which month has the most bookings?** 13,877 bookings
 
 ---
 
@@ -420,18 +415,15 @@ hotels %>%
 
 **What was the most interesting finding from this data?**
 
-___________________________________________________________________________
-___________________________________________________________________________
+The most interesting finding was that both unusual daily rates occurred in March. One Resort Hotel booking had a negative rate of -6.38 in March 2017, while one City Hotel booking had a very high rate of 5,400 in March 2016. I found it interesting that both unusual values happened in the same month but in different years.
 
 **Which data wrangling skill was most useful in this exercise?**
 
-___________________________________________________________________________
+Most useful data wrangling skill was filter() because it helped me find specific bookings that met certain conditions.
 
 **What would you want to investigate further in this dataset?**
 
-___________________________________________________________________________
-___________________________________________________________________________
-
+I would like to investigate further in this dataset which months have the highest cancellation rates and whether hotel prices affect cancellations
 ---
 
 ## Knit and Submit
