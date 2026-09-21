@@ -1,6 +1,6 @@
 ---
 title: "AE 05 - Data Types, Factors & Dates"
-author: "Your Name"
+author: "Dina Alarcon"
 date: "`r Sys.Date()`"
 output: 
   html_document:
