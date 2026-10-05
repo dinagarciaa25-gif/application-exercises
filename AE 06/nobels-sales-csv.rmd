@@ -1,6 +1,6 @@
 ---
 title: "AE 06 - Nobels + Sales + Data Import"
-author: "Your Name"
+author: "Dina Alarcon"
 date: "`r Sys.Date()`"
 output: 
   html_document:
