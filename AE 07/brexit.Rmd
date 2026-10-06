@@ -1,6 +1,6 @@
 ---
 title: "AE 07 - Brexit - Telling Different Stories with Data"
-author: "Your Name"
+author: "Dina Alarcon"
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
